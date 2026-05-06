@@ -189,13 +189,16 @@ $data = mysqli_query($koneksi, "SELECT * FROM prestasi ORDER BY id_prestasi DESC
         </button>
 
         <div class="collapse navbar-collapse" id="menu">
-            <ul class="navbar-nav ms-auto">
-                <li><a href="index.php" class="nav-link">Home</a></li>
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+                <li><a href="index.php" class="nav-link active">Home</a></li>
                 <li><a href="profil.php" class="nav-link">Profil</a></li>
                 <li><a href="berita.php" class="nav-link">Berita</a></li>
                 <li><a href="galeri.php" class="nav-link">Galeri</a></li>
-                <li><a href="prestasi.php" class="nav-link active">Prestasi</a></li>
+                <li><a href="prestasi.php" class="nav-link">Prestasi</a></li>
+                <li><a href="materi.php" class="nav-link">Materi</a></li>
+                <li><a href="berkas.php" class="nav-link">Berkas</a></li>
                 <li><a href="kontak.php" class="nav-link">Kontak</a></li>
+
             </ul>
         </div>
     </div>

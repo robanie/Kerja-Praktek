@@ -215,7 +215,7 @@ $prestasi = mysqli_query($koneksi, "SELECT * FROM prestasi ORDER BY id_prestasi 
 <body>
 
 <!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light sticky-top">
     <div class="container">
         <a class="navbar-brand" href="#">SekolahKu</a>
 
@@ -230,7 +230,10 @@ $prestasi = mysqli_query($koneksi, "SELECT * FROM prestasi ORDER BY id_prestasi 
                 <li><a href="berita.php" class="nav-link">Berita</a></li>
                 <li><a href="galeri.php" class="nav-link">Galeri</a></li>
                 <li><a href="prestasi.php" class="nav-link">Prestasi</a></li>
+                <li><a href="materi.php" class="nav-link">Materi</a></li>
+                <li><a href="berkas.php" class="nav-link">Berkas</a></li>
                 <li><a href="kontak.php" class="nav-link">Kontak</a></li>
+
             </ul>
         </div>
     </div>

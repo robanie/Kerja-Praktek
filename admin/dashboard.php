@@ -10,20 +10,22 @@ if (!isset($_SESSION['username']) || !isset($_SESSION['role']) || $_SESSION['rol
 $total_berita = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_berita FROM berita"));
 $total_galeri = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_galeri FROM galeri"));
 $total_prestasi = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_prestasi FROM prestasi"));
+$total_materi = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_materi FROM materi"));
+$total_berkas = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_berkas FROM berkas"));
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Admin</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Admin</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <style>
+<style>
         * {
             margin: 0;
             padding: 0;
@@ -54,7 +56,7 @@ $total_prestasi = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_prestasi FRO
             margin-bottom: 40px;
         }
 
-        .sidebar-logo .logo-icon {
+        .logo-icon {
             width: 70px;
             height: 70px;
             background: rgba(255,255,255,0.15);
@@ -64,15 +66,6 @@ $total_prestasi = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_prestasi FRO
             justify-content: center;
             margin: 0 auto 15px;
             font-size: 30px;
-        }
-
-        .sidebar-logo h4 {
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .sidebar-logo small {
-            opacity: 0.8;
         }
 
         .sidebar-menu a {
@@ -120,12 +113,6 @@ $total_prestasi = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_prestasi FRO
         .topbar p {
             margin: 0;
             color: #64748b;
-        }
-
-        .admin-box {
-            display: flex;
-            align-items: center;
-            gap: 12px;
         }
 
         .admin-avatar {
@@ -217,24 +204,19 @@ $total_prestasi = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_prestasi FRO
                 width: 100%;
                 height: auto;
                 position: relative;
-                border-radius: 0 0 30px 30px;
             }
 
             .content {
                 margin-left: 0;
                 padding: 20px;
             }
-
-            .topbar {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 20px;
-            }
         }
-    </style>
+</style>
 </head>
+
 <body>
 
+<!-- SIDEBAR -->
 <div class="sidebar">
     <div class="sidebar-logo">
         <div class="logo-icon">
@@ -245,36 +227,18 @@ $total_prestasi = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_prestasi FRO
     </div>
 
     <div class="sidebar-menu">
-        <a href="dashboard.php" class="active">
-            <i class="bi bi-speedometer2"></i> Dashboard
-        </a>
-
-        <a href="berita.php">
-            <i class="bi bi-newspaper"></i> Kelola Berita
-        </a>
-
-        <a href="galeri.php">
-            <i class="bi bi-images"></i> Kelola Galeri
-        </a>
-
-        <a href="prestasi.php">
-            <i class="bi bi-trophy"></i> Kelola Prestasi
-        </a>
-
-        <a href="../index.php">
-            <i class="bi bi-globe"></i> Lihat Website
-        </a>
-
-        <a href="../guru/absensi.php">
-            <i class="bi bi-clipboard-check"></i> Absensi Siswa
-        </a>
-
-        <a href="logout.php">
-            <i class="bi bi-box-arrow-right"></i> Logout
-        </a>
+        <a href="dashboard.php" class="active"><i class="bi bi-speedometer2"></i> Dashboard</a>
+        <a href="../index.php"><i class="bi bi-globe"></i> Lihat Website</a>
+        <a href="berita.php"><i class="bi bi-newspaper"></i> Kelola Berita</a>
+        <a href="galeri.php"><i class="bi bi-images"></i> Kelola Galeri</a>
+        <a href="prestasi.php"><i class="bi bi-trophy"></i> Kelola Prestasi</a>
+        <a href="materi.php"><i class="bi bi-journal-text"></i> Kelola Materi</a>
+        <a href="berkas.php"><i class="bi bi-file-earmark"></i> Kelola Berkas</a>
+        <a href="logout.php"><i class="bi bi-box-arrow-right"></i> Logout</a>
     </div>
 </div>
 
+<!-- CONTENT -->
 <div class="content">
 
     <div class="topbar">
@@ -283,59 +247,69 @@ $total_prestasi = mysqli_num_rows(mysqli_query($koneksi, "SELECT id_prestasi FRO
             <p>Kelola seluruh konten website sekolah dari sini.</p>
         </div>
 
-        <div class="admin-box">
+        <div class="admin-box d-flex align-items-center gap-2">
             <div class="admin-avatar">
                 <i class="bi bi-person-fill"></i>
             </div>
             <div>
-                <strong><?php echo $_SESSION['username']; ?></strong><br>
+                <strong><?= $_SESSION['username']; ?></strong><br>
                 <small class="text-muted">Admin</small>
             </div>
         </div>
     </div>
 
+    <!-- STATISTIK -->
     <div class="row g-4">
 
         <div class="col-md-4">
-    <div class="stats-card bg-blue">
-        <div class="stats-icon">
-            <i class="bi bi-newspaper"></i>
+            <div class="stats-card bg-blue">
+                <div class="stats-icon"><i class="bi bi-newspaper"></i></div>
+                <h3><?= $total_berita; ?></h3>
+                <p>Total Berita</p>
+            </div>
         </div>
-        <h3><?= $total_berita; ?></h3>
-        <p>Total Berita</p>
-    </div>
-</div>
 
-<div class="col-md-4">
-    <div class="stats-card bg-green">
-        <div class="stats-icon">
-            <i class="bi bi-images"></i>
+        <div class="col-md-4">
+            <div class="stats-card bg-green">
+                <div class="stats-icon"><i class="bi bi-images"></i></div>
+                <h3><?= $total_galeri; ?></h3>
+                <p>Total Galeri</p>
+            </div>
         </div>
-        <h3><?= $total_galeri; ?></h3>
-        <p>Total Galeri</p>
-    </div>
-</div>
 
-<div class="col-md-4">
-    <div class="stats-card bg-orange">
-        <div class="stats-icon">
-            <i class="bi bi-trophy"></i>
+        <div class="col-md-4">
+            <div class="stats-card bg-orange">
+                <div class="stats-icon"><i class="bi bi-trophy"></i></div>
+                <h3><?= $total_prestasi; ?></h3>
+                <p>Total Prestasi</p>
+            </div>
         </div>
-        <h3><?= $total_prestasi; ?></h3>
-        <p>Total Prestasi</p>
-    </div>
-</div>
+
+        <!-- TAMBAHAN -->
+        <div class="col-md-4">
+            <div class="stats-card bg-blue">
+                <div class="stats-icon"><i class="bi bi-journal-text"></i></div>
+                <h3><?= $total_materi; ?></h3>
+                <p>Total Materi</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="stats-card bg-green">
+                <div class="stats-icon"><i class="bi bi-file-earmark"></i></div>
+                <h3><?= $total_berkas; ?></h3>
+                <p>Total Berkas</p>
+            </div>
+        </div>
+
     </div>
 
     <div class="welcome-card">
         <h4>Selamat Datang di Dashboard Admin 👋</h4>
-        <p>
-            Gunakan menu di samping untuk mengelola berita, galeri, prestasi, dan seluruh konten website sekolah.
-        </p>
+        <p>Gunakan menu di samping untuk mengelola semua konten website sekolah.</p>
     </div>
 
 </div>
 
 </body>
 </html>
-```
